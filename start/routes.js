@@ -22,7 +22,7 @@ Route.get('/', () => {
 })
 Route.group(() => {
   Route.get('list/entities', 'EntityController.showEntities')
-  Route.get('list/entities/:id/headquarters', 'EntityController.showListSedeById')
+  Route.get('list/entities/:id/headquarters', 'EntityController.showListHeadquarterById')
   Route.get('detail/headquarters/:id/participants', 'EntityController.showParticipantDetailById')
   Route.get('detail/headquarters/:id', 'EntityController.showDetailSedeById')
 })
