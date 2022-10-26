@@ -20,6 +20,10 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
-Route.get('entities','EntityController.show')
-Route.get('show/contract/:id','EntityController.showContractById')
-Route.get('show/sede/:id','EntityController.showSedeById')
+Route.group(() => {
+  Route.get('list/entities', 'EntityController.showEntities')
+  Route.get('list/entities/:id/headquarters', 'EntityController.showListSedeById')
+  Route.get('detail/headquarters/:id/participants', 'EntityController.showParticipantDetailById')
+  Route.get('detail/headquarters/:id', 'EntityController.showDetailSedeById')
+})
+  .prefix('/api/v1')
