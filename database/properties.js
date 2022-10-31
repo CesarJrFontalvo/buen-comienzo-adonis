@@ -1,8 +1,8 @@
-module.exports.scripts =
-{
+module.exports.scripts = {
     "getEntities": "select id, modelo->>'RAZON_SOCIAL' as razon_social, modelo->>'NUMERO_DOCUMENTO' as numero_documento from  nbc_entidades order by modelo->>'RAZON_SOCIAL'",
     "getListHeadquarterById": (id) => {
-        return `select nbc_sedes_contrato.id, nbc_sedes_contrato.modelo->>'DESCRIPCION_SEDE' as descripcion_sede from nbc_sedes_contrato, nbc_contratos where nbc_contratos.id = (nbc_sedes_contrato.modelo->>'ID_CONTRATO')::integer and (nbc_contratos.modelo->>'PRESTADOR_ID')::integer = ${id} order by nbc_sedes_contrato.modelo->>'DESCRIPCION_SEDE'`
+        return `
+        select nbc_sedes_contrato.id, nbc_sedes_contrato.modelo->>'DESCRIPCION_SEDE' as descripcion_sede from nbc_sedes_contrato, nbc_contratos where nbc_contratos.id = (nbc_sedes_contrato.modelo->>'ID_CONTRATO')::integer and (nbc_contratos.modelo->>'PRESTADOR_ID')::integer = ${id} order by nbc_sedes_contrato.modelo->>'DESCRIPCION_SEDE'`
     },
     "showParticipantDetailById": (id) => {
         return `with    my_parameters as (
@@ -101,7 +101,7 @@ from    base_data_4
 order by id_grupo
 `
     },
-    "showDetailSedeById": (id) => {
+    "showDetailHeadquarterById": (id) => {
         return `select  nbc_sedes.modelo->>'NOMBRE_SEDE' as nombre_sede,
         nbc_sedes.modelo->'UBICACION'->>'BARRIO' as id_barrio_sede,
         nbc_sedes.modelo->'UBICACION'->>'NOMBRE_BARRIO' as barrio_sede,
@@ -119,6 +119,6 @@ from    nbc_sedes,
 where   nbc_sedes_contrato.id = nbc_sedes.id 
 and     nbc_contratos.id   = (nbc_sedes_contrato.modelo->>'ID_CONTRATO')::integer
 and     nbc_modalidades.id = (nbc_contratos.modelo->>'MODALIDAD_ID')::integer
-and     nbc_sedes.id       = ${id}`
+and     nbc_sedes.id  = ${id}`
     },
 }
